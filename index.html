@@ -1,10 +1,9 @@
-
 <!DOCTYPE html><html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JF Sports - المتجر الرياضي</title>
-  <img src="photo_2025-04-17_13-56-59.jpg" alt="JF Sport Logo" style="display:none;">
+  <img src="/photo_2025-04-17_13-56-59.jpg" alt="JF Sport Logo" style="display:none;">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
@@ -190,6 +189,47 @@
   color: black;
   cursor: pointer;
 }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* عرض عمودين فقط */
+  gap: 20px;
+  padding: 0 20px;
+}
+
+.product-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.product-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.product-card h3 {
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+.product-card .price {
+  color: #b12704;
+  font-weight: bold;
+}
+
+.product-card button {
+  background-color: #131921;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
   </style>
 </head>
 <body>
@@ -225,6 +265,7 @@
   <section id="products">
     <h2 class="section-title">منتجات مميزة</h2>
     <div class="grid">
+      <!-- منتج 1 -->
       <div class="product-card">
         <img src="photo_2025-04-11_17-11-04.jpg" alt="منتج 1">
         <h3>دمبل 10 كغ</h3>
@@ -233,6 +274,7 @@
         <button>تفاصيل المنتج</button>
         <button>أضف إلى السلة</button>
       </div>
+      <!-- منتج 2 -->
       <div class="product-card">
         <img src="photo_2025-04-11_17-11-08.jpg" alt="منتج 2">
         <h3>تيشيرت رياضي</h3>
@@ -241,6 +283,7 @@
         <button>تفاصيل المنتج</button>
         <button>أضف إلى السلة</button>
       </div>
+      <!-- منتج 3 -->
       <div class="product-card">
         <img src="photo_2025-04-11_21-54-27.jpg" alt="دمبل قابل للتعديل">
         <h3>دمبل قابل للتعديل</h3>
@@ -249,6 +292,7 @@
         <button>تفاصيل المنتج</button>
         <button>أضف إلى السلة</button>
       </div>
+      <!-- منتج 4 -->
       <div class="product-card">
         <img src="photo_2025-04-11_21-59-39.jpg" alt="باربل">
         <h3>باربل</h3>
@@ -260,8 +304,9 @@
       <!-- أضف المزيد حسب الحاجة -->
     </div>
   </section>
+  </section>
   <section id="products">
-    <h2 class="section-title">منتجات مميزة</h2>
+    <h2 class="section-title">قسم الاول</h2>
     <div class="slider-container">
       <div class="slider" id="productSlider">
         <!-- منتج 1 -->
