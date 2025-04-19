@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>سلة المشتريات</title>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      background: #fff;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .cart-item img {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .cart-details {
+      flex: 1;
+      margin-right: 15px;
+    }
+
+    .cart-details h3 {
+      margin: 0;
+    }
+
+    .total, .checkout {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .checkout select, .checkout button {
+      padding: 10px;
+      margin: 10px 0;
+      width: 100%;
+      max-width: 300px;
+      font-size: 16px;
+    }
+
+    .checkout button {
+      background-color: #000;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .checkout button:hover {
+      background-color: #444;
+    }
+  </style>
+</head>
+<body>
+
+<h1>سلة المشتريات</h1>
+<div id="cart"></div>
+<div class="total" id="total">الإجمالي: 0 د.ع</div>
+
+<div class="checkout">
+  <select id="paymentMethod">
+    <option value="">اختر طريقة الدفع</option>
+    <option value="الدفع عند الاستلام">الدفع عند الاستلام</option>
+    <option value="الدفع الإلكتروني">الدفع الإلكتروني</option>
+  </select>
+  <button id="confirmOrder">تأكيد الطلب</button>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const cartDiv = document.getElementById("cart");
+  const totalDiv = document.getElementById("total");
+  let total = 0;
+
+  // عرض محتوى السلة
+  if (cart.length === 0) {
+    cartDiv.innerHTML = "<p style='text-align:center;'>السلة فارغة.</p>";
+  } else {
+    cart.forEach(p => {
+      let cleanPrice = parseFloat((p.price || "0").toString().replace(/[^\d.]/g, ""));
+      total += isNaN(cleanPrice) ? 0 : cleanPrice;
+
+      const div = document.createElement("div");
+      div.className = "cart-item";
+      div.innerHTML = `
+        <img src="${p.image || 'default.jpg'}" />
+        <div class="cart-details">
+          <h3>${p.name || 'اسم المنتج'}</h3>
+          <p>السعر: ${p.price} د.ع</p>
+        </div>
+      `;
+      cartDiv.appendChild(div);
+    });
+
+    totalDiv.textContent = "الإجمالي: " + total.toFixed(2) + " د.ع";
+  }
+
+  // عند الضغط على تأكيد الطلب
+  document.getElementById("confirmOrder").addEventListener("click", function () {
+    const method = document.getElementById("paymentMethod").value;
+    if (!method) {
+      alert("اختر طريقة الدفع أولاً");
+      return;
+    }
+
+    if (cart.length === 0) {
+      alert("السلة فارغة");
+      return;
+    }
+
+    const order = {
+      id: Date.now(),
+      cart,
+      total: total.toFixed(2),
+      method,
+      status: "تم التجهيز"
+    };
+
+    localStorage.setItem("order", JSON.stringify(order));
+
+    // تكوين رسالة واتساب
+    let message = "طلب جديد من موقع JS-Store:%0A%0A";
+    cart.forEach((item, index) => {
+      message += `${index + 1}. المنتج: ${item.name}%0Aالسعر: ${item.price} د.ع%0A--------------------%0A`;
+    });
+    message +=` %0Aالإجمالي: ${total.toFixed(2)} د.ع`;
+    message +=` %0Aطريقة الدفع: ${method}`;
+    message +=` %0Aالرجاء تأكيد الطلب.`;
+
+    const adminNumber = "9647867969795";
+    const whatsappURL = `https://wa.me/${adminNumber}?text=${message}`;
+    window.open(whatsappURL, "_blank");
+
+    localStorage.removeItem("cart");
+    window.location.href = "track.html";
+  });
+});
+</script>
+
+</body>
+</html>

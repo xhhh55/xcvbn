@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>تفاصيل المنتج - JS-Store</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      direction: rtl;
+      background: #fff;
+      margin: 0;
+      padding: 40px;
+    }
+
+    .product-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      max-width: 1000px;
+      margin: auto;
+      align-items: flex-start;
+    }
+
+    .product-container img {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 12px;
+      border: 1px solid #ddd;
+    }
+
+    .product-info {
+      flex: 1;
+    }
+
+    .product-info h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .product-info p {
+      font-size: 16px;
+      color: #444;
+    }
+
+    .price {
+      font-size: 20px;
+      margin: 15px 0;
+    }
+
+    .stars {
+      color: #f39c12;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      background: #111;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #444;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="product-container">
+    <img src="products/dumbbell1.png" alt="دمبل حديد">
+
+    <div class="product-info">
+      <h1>دمبل حديد 10 كغ</h1>
+      <div class="stars">★★★★★</div>
+      <p class="price"><del>$20.00</del> <strong>$15.99</strong></p>
+      <p>
+        دمبل حديد ممتاز لتمارين القوة وبناء العضلات، مصنوع من خامات عالية الجودة، مناسب للتدريب المنزلي أو في الجيم.
+      </p>
+      <button class="btn" onclick="addToCart()">أضف إلى السلة</button>
+    </div>
+  </div>
+
+  <script>
+    function addToCart() {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push({
+        name: "دمبل حديد 10 كغ",
+        price: "$15.99",
+        image: "products/dumbbell1.png"
+      });
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert("تمت إضافة المنتج إلى السلة!");
+    }
+  </script>
+
+</body>
+</html>

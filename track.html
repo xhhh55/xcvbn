@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>تتبع الطلب</title>
+  <style>
+    body { font-family: 'Cairo', sans-serif; background: #f1f1f1; padding: 30px; text-align: center; }
+    h2 { margin-bottom: 30px; }
+    .step { margin: 10px 0; padding: 15px; background: #fff; border-radius: 8px; max-width: 400px; margin-inline: auto; }
+    .active { background-color: #28a745; color: white; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<h2>تتبع حالة الطلب</h2>
+<div id="tracking"></div>
+
+<script>
+  const order = JSON.parse(localStorage.getItem("order"));
+  const tracking = document.getElementById("tracking");
+
+  const statuses = ["تم التجهيز", "جاري الشحن", "تم التوصيل"];
+
+  if (!order) {
+    tracking.innerHTML = "<p>لا يوجد طلب حالياً.</p>";
+  } else {
+    statuses.forEach((step, index) => {
+      const div = document.createElement("div");
+      div.className = "step" + (step === order.status ? " active" : "");
+      div.textContent = step;
+      tracking.appendChild(div);
+    });
+
+    // مثال: تحديث تلقائي للحالة كل 5 ثوانٍ للتجربة فقط
+    setTimeout(() => {
+      order.status = "جاري الشحن";
+      localStorage.setItem("order", JSON.stringify(order));
+      location.reload();
+    }, 5000);
+  }
+</script>
+
+</body>
+</html>

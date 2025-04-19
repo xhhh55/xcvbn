@@ -1,0 +1,20 @@
+[
+    {
+      "id": "1",
+      "name": "دمبل حديد 10 كغ",
+      "image": "products/dumbbell1.png",
+      "price": "15.99",
+      "oldPrice": "20.00",
+      "stars": 5,
+      "description": "دمبل حديد عالي الجودة مثالي لتمارين القوة المنزلية أو في الجيم."
+    },
+    {
+      "id": "2",
+      "name": "تيشيرت رياضي",
+      "image": "products/shirt.png",
+      "price": "19.99",
+      "oldPrice": "25.00",
+      "stars": 4,
+      "description": "تيشيرت قطن مريح مناسب للتمارين والارتداء اليومي."
+    }
+  ]
